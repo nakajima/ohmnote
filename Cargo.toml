@@ -1,0 +1,38 @@
+[package]
+name = "resisto"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+esp-backtrace = { version = "0.14.1", features = [
+  "esp32c6",
+  "exception-handler",
+  "panic-handler",
+  "println",
+] }
+esp-hal = { version = "0.22.0", features = ["esp32c6", "log"] }
+embassy-executor = { version = "0.6.0", features = ["nightly"] }
+embassy-time = { version = "0.3.1", features = ["generic-queue-8"] }
+static_cell = { version = "2.1.0", features = ["nightly"] }
+nau7802 = { path = "../forks/nau7802-rs", features = [] }
+esp-hal-embassy = { version = "0.5.0", features = ["esp32c6"] }
+log = "0.4.22"
+esp-println = { version = "0.12.0", features = ["esp32c6", "log"] }
+num-traits = { version = "0.2.19", features = [
+  "libm",
+], default-features = false }
+heapless = "0.8.0"
+
+[profile.dev]
+# Rust debug is too slow.
+# For debug builds always builds with some optimization
+opt-level = "s"
+
+[profile.release]
+codegen-units = 1        # LLVM can perform better optimizations using a single thread
+debug = 2
+debug-assertions = false
+incremental = false
+lto = 'fat'
+opt-level = 's'
+overflow-checks = false

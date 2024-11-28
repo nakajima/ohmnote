@@ -1,0 +1,16 @@
+[target.riscv32imac-unknown-none-elf]
+runner = "espflash flash --monitor"
+
+[env]
+ESP_LOG = "trace"
+
+[build]
+rustflags = [
+  "-C",
+  "force-frame-pointers",
+] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
+
+target = "riscv32imac-unknown-none-elf"
+
+[unstable]
+build-std = ["core"]
