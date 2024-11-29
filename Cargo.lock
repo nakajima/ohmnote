@@ -793,6 +793,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "ohmnote"
+version = "0.1.0"
+dependencies = [
+ "embassy-executor",
+ "embassy-sync",
+ "embassy-time",
+ "embedded-graphics",
+ "esp-backtrace",
+ "esp-hal",
+ "esp-hal-embassy",
+ "esp-println",
+ "heapless",
+ "log",
+ "nau7802",
+ "num-traits",
+ "ssd1306",
+ "static_cell",
+ "tinybmp",
+ "u8g2-fonts",
+]
+
+[[package]]
 name = "paste"
 version = "1.0.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -898,28 +920,6 @@ name = "rand_core"
 version = "0.6.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
-
-[[package]]
-name = "resisto"
-version = "0.1.0"
-dependencies = [
- "embassy-executor",
- "embassy-sync",
- "embassy-time",
- "embedded-graphics",
- "esp-backtrace",
- "esp-hal",
- "esp-hal-embassy",
- "esp-println",
- "heapless",
- "log",
- "nau7802",
- "num-traits",
- "ssd1306",
- "static_cell",
- "tinybmp",
- "u8g2-fonts",
-]
 
 [[package]]
 name = "riscv"

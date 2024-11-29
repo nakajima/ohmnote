@@ -12,7 +12,7 @@ use esp_hal::{
     prelude::*,
 };
 use esp_println::logger::init_logger;
-use resisto::{
+use ohmnote::{
     display::{init_display, READING},
     meter::Meter,
 };
