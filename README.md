@@ -20,6 +20,7 @@ If you want to make it yourself, you can use the PCB files in the Gerbers/ direc
 - **2** 100nf capacitors
 - **1** SSD1306 OLED screen (i used [this one](https://www.amazon.com/gp/product/B09T6SJBV5/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1))
 - **2** Header sockets
+- **1** [XIAO ESP32C6](https://www.seeedstudio.com/Seeed-Studio-XIAO-ESP32C6-p-5884.html) (this is what I used because I had one around, it probably wouldn't be too tough to use something else with the same form factor, you'd just have to change some code)
 - Some stranded wires
 - Some copper tape
 
