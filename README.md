@@ -37,7 +37,7 @@ I used my soldering iron on the lowest heat setting and they just sank in.
 
 ### Push some wire through the nubbins
 
-These will get pushed into the slots under the headers
+These will get pushed into the slots under the headers.
 
 ![Wire pushed through nubbins](images/nubbins.jpg)
 
