@@ -71,35 +71,28 @@ impl<'d> Meter<'d> {
 
         let value = self.samples.iter().sum::<f32>() / self.samples.len() as f32;
 
-        // log::info!("volt_image: {}, value: {}", volt_image, value);
-
         if volt_image < 2700 {
             if value < 1000.0 {
-                // For values less than 1000 Ohms
                 let integer_part = value as u16;
 
                 // Format into the buffer
                 write!(&mut buffer, "{}", integer_part).unwrap();
             } else if value < 10_000.0 {
-                // For values between 1 KΩ and 10 KΩ
                 let integer_part = (value / 1000.0) as u16;
                 let fractional_part = (value as u16) % 1000;
 
                 write!(&mut buffer, "{}.{:03}K", integer_part, fractional_part).unwrap();
             } else if value < 100_000.0 {
-                // For values between 10 KΩ an                                               d 100 KΩ
                 let integer_part = (value / 1000.0) as u16;
                 let fractional_part = ((value / 100.0) as u16) % 10;
 
                 write!(&mut buffer, "{:02}.{:02}K", integer_part, fractional_part).unwrap();
             } else if value < 1_000_000.0 {
-                // For values between 100 KΩ and 1 MΩ
                 let integer_part = (value / 1000.0) as u16;
                 let fractional_part = ((value / 100.0) as u16) % 10;
 
                 write!(&mut buffer, "{:03}.{}K", integer_part, fractional_part).unwrap();
             } else {
-                // For values 1 MΩ and above
                 let integer_part = (value / 1_000_000.0) as u16;
                 let fractional_part = ((value / 1000.0) as u16) % 1000;
 

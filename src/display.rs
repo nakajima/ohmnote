@@ -24,12 +24,12 @@ pub static READING: Watch<CriticalSectionRawMutex, Option<String<32>>, 1> = Watc
 pub async fn init_display(i2c: I2c<'static, Async>) {
     log::info!("init_display");
 
-    let interface = I2CDisplayInterface::new_alternate_address(i2c);
+    let interface = I2CDisplayInterface::new(i2c);
     let mut display = Ssd1306::new(interface, DisplaySize128x64, DisplayRotation::Rotate0)
         .into_buffered_graphics_mode();
 
     while display.init().is_err() {
-        log::warn!("init_display failed, retrying");
+        log::warn!("init_display failed: {:?}, retrying", display.init().err());
         Timer::after_millis(50).await;
     }
 

@@ -31,9 +31,8 @@ async fn main(spawner: Spawner) {
     esp_hal_embassy::init(timg0.timer0);
     log::info!("Embassy initialized");
 
-    let scl = peripherals.GPIO20;
-    let sda = peripherals.GPIO19;
-    let rst = peripherals.GPIO18;
+    let scl = peripherals.GPIO18;
+    let sda = peripherals.GPIO20;
 
     let mut config = i2c::master::Config::default();
     config.frequency = 1_000.kHz();
@@ -42,14 +41,19 @@ async fn main(spawner: Spawner) {
         .with_sda(sda)
         .into_async();
 
+    // Pull pins we're not using low
+    Output::new(peripherals.GPIO16, Level::Low);
+    Output::new(peripherals.GPIO19, Level::Low);
+    Output::new(peripherals.GPIO17, Level::Low);
+
     // Reset display
-    let mut rst = Output::new(rst, Level::High);
-    rst.set_high();
-    Timer::after_millis(10).await;
-    rst.set_low();
-    Timer::after_millis(10).await;
-    rst.set_high();
-    Timer::after_millis(100).await;
+    // let mut rst = Output::new(rst, Level::High);
+    // rst.set_high();
+    // Timer::after_millis(10).await;
+    // rst.set_low();
+    // Timer::after_millis(10).await;
+    // rst.set_high();
+    // Timer::after_millis(100).await;
 
     spawner.spawn(init_display(i2c)).unwrap();
 
@@ -79,17 +83,13 @@ async fn main(spawner: Spawner) {
     meter.set_channel(4);
 
     loop {
+        log::info!("reading channel {}", meter.channel);
         let voltage = adc.read_oneshot(&mut adc_pin).unwrap();
+        log::info!("voltage: {}", voltage);
         let result = meter.read(voltage).await;
 
         READING.sender().send(result.clone());
-        // log::trace!(
-        //     "result: {:?}, channel: {}, voltage: {}, sample_index: {}",
-        //     result,
-        //     meter.channel,
-        //     voltage,
-        //     meter.sample_index
-        // );
+
         Timer::after_millis(10).await;
     }
 }
